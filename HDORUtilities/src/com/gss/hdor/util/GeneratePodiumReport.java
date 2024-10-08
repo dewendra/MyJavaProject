@@ -205,6 +205,8 @@ public class GeneratePodiumReport {
 			Integer silver = 0;
 			Integer bronze = 0;
 
+			
+			
 			JSONArray array = resultJSON.optJSONArray("finisherLevels");
 
 			if (null != array && array.length() > 0) {
@@ -378,6 +380,7 @@ public class GeneratePodiumReport {
 				// JsonPath.using(Configuration.defaultConfiguration().addOptions(Option.ALWAYS_RETURN_LIST,Option.SUPPRESS_EXCEPTIONS)).parse(output.toString());
 
 			} else {
+				System.out.println("------------- ERROR WHILE CALLING API --------------");
 				System.out.println("------------- ERROR WHILE CALLING API --------------");
 				System.out.println(urlConnection.getResponseCode());
 			}
