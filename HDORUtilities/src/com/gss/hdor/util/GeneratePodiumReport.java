@@ -63,7 +63,7 @@ public class GeneratePodiumReport {
 		// System.out.println();
 
 		// for everyone
-		processLeaderBoardResponseJson(getDataFromLeaderBoardAPI(886, 20000), 886);
+		processLeaderBoardResponseJson(getDataFromLeaderBoardAPI(883, 20000), 883);
 
 		// Firefox
 		// processLeaderBoardResponseJson(getDataFromLeaderBoardAPI(555, 1500), 555);
@@ -75,13 +75,13 @@ public class GeneratePodiumReport {
 		// System.out.println(response);
 		// System.out.println("FitId,Name,EventDistance,BestTime,Rank,Attemps,City,State,EventId");
 
-		JSONArray resultArray = response.getJSONArray("resultList");
+		JSONArray resultArray = response.getJSONArray("list");
 		int arraySize = resultArray.length();
 		for (int i = 0; i < arraySize; i++) {
 			numOfRecords++;
 			JSONObject resultJSON = resultArray.getJSONObject(i);
 
-			// System.out.println(resultJSON.toString());
+			System.out.println(resultJSON.toString());
 			// System.out.println("Arrray Size:"+ arraySize);
 
 			// break;
@@ -165,10 +165,8 @@ public class GeneratePodiumReport {
 
 			// India and International race series
 						 System.out.println(resultJSON.getInt("runnerId") + "," + resultJSON.getString("name")
-						 +"," + resultJSON.optInt("eventDistance")+"," + resultJSON.optInt("bestTime")+"," +
-						 	 resultJSON.getInt("rank")+"," + resultJSON.optInt("noOfAttempts")+"," + 
-								  resultJSON.getString("state")+"," + 
-								 resultJSON.getString("country")+ "," + eventId );
+						 +","  + resultJSON.optInt("bestTime")+"," +
+						 	 resultJSON.getInt("rank")+"," + resultJSON.optInt("activityCount")+","  + eventId );
 
 			// 100 Days of steps Challenge finisherLevel
 //			 System.out.println(resultJSON.getInt("runnerId") + "," +
@@ -321,7 +319,12 @@ public class GeneratePodiumReport {
 			// String strURL = "https://api.hdor.com/hdor/reports/pgn/leaderboard.htm";
 
 			// New API
-			String strURL = "https://api.hdor.com/reports/reports/leaderboard";
+			//String strURL = "https://api.hdor.com/reports/reports/leaderboard";
+			
+			// New V2 API
+			//https://apiv2.hdor.com/report/report/overall/list
+
+			String strURL = "https://apiv2.hdor.com/report/report/overall/list";
 
 			apiURL = new URL(strURL);
 
