@@ -13,13 +13,13 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class TestJava {
+public class TestJavaApi {
 
 	public static long numOfRecords = 0;
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "65a90838622b5652c29e7eb1";
+		String eventId = "6684ff866ff9361402cfe592";
 
 		// Fetch and process leaderboard data
 		JSONObject response = getDataFromLeaderBoardAPI(eventId, 20000);
@@ -40,94 +40,88 @@ public class TestJava {
 	 * @throws Exception if JSON parsing fails
 	 */
 	public static void processLeaderBoardResponseJson(JSONObject response, String eventId) throws Exception {
-		if (!response.has("list")) {
-			System.out.println("No 'list' found in the response.");
-			return;
-		}
+	    if (!response.has("list")) {
+	        System.out.println("No 'resultList' found in the response.");
+	        return;
+	    }
 
-		JSONArray resultArray = response.getJSONArray("list");
-		int arraySize = resultArray.length();
+	    JSONArray resultArray = response.getJSONArray("list");
+	    int arraySize = resultArray.length();
 
-		for (int i = 0; i < arraySize; i++) {
-			numOfRecords++;
-			JSONObject resultJSON = resultArray.getJSONObject(i);
+	    for (int i = 0; i < arraySize; i++) {
+	        numOfRecords++;
+	        JSONObject resultJSON = resultArray.getJSONObject(i);
 
-			// Extract basic fields
-			int runnerId = resultJSON.optInt("runnerId", -1);
-			String name = resultJSON.optString("name", "N/A");
-			String gender = resultJSON.optString("gender", "N/A");
-			int rank = resultJSON.optInt("rank", -1);
-			String ageGroup = resultJSON.optString("ageGroup", "N/A");
-			
+	        // Extract basic fields
+	        int runnerId = resultJSON.optInt("runnerId", -1);
+	        String name = resultJSON.optString("name", "N/A");
+	        String gender = resultJSON.optString("gender", "N/A");
+	        int rank = resultJSON.optInt("rank", -1);
+	        String ageGroup = resultJSON.optString("ageGroup", "N/A");
+	        int age = resultJSON.optInt("age", -1);
 
-			// Initialize variables to store dataPoints
-			int activityCount = -1;
-			int challengesCompleted=-1;
-			double totalPoints=-1;
-			double totalDistance=-1;
-			double totalSteps=-1;
-			String bestTime = "N/A";
+	        // Initialize variables to store dataPoints
+	        int totalPoints = -1;
+	        double totalDistance = -1;
+	        int challengesCompleted = -1;
+	        String totalTime = "N/A";
 
-			// Extract dataPoints array
-			if (resultJSON.has("dataPoints")) {
-				JSONArray dataPoints = resultJSON.getJSONArray("dataPoints");
-				for (int j = 0; j < dataPoints.length(); j++) {
-					JSONObject dataPoint = dataPoints.getJSONObject(j);
-					String dataType = dataPoint.optString("dataType", "");
+	        // Extract dataPoints array
+	        if (resultJSON.has("dataPoints")) {
+	            JSONArray dataPoints = resultJSON.getJSONArray("dataPoints");
+	            for (int j = 0; j < dataPoints.length(); j++) {
+	                JSONObject dataPoint = dataPoints.getJSONObject(j);
+	                String dataType = dataPoint.optString("dataType", "");
 
-					switch (dataType) {
-					case "activityCount":
-						activityCount = dataPoint.optInt("value", -1);
-						break;
-					case "challengesCompleted":
-						challengesCompleted = dataPoint.optInt("value", -1);
-						break;
-					case "totalDistance":
-						totalDistance = dataPoint.optDouble("value", -1);
-						break;
-					case "totalPoints":
-						totalPoints = dataPoint.optDouble("value", -1);
-						break;
-					case "totalSteps":
-						totalSteps = dataPoint.optDouble("value", -1);
-						break;
-					case "bestTime":
-						JSONObject timeValue = dataPoint.optJSONObject("value");
-						if (timeValue != null) {
-							int hours = timeValue.optInt("hours", 0);
-							int minutes = timeValue.optInt("minute", 0);
-							int seconds = timeValue.optInt("sec", 0);
-							bestTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-						}
-						break;
-					default:
-						// Handle other data types if necessary
-						break;
-					}
-				}
-			}
+	                switch (dataType) {
+	                    case "totalPoints":
+	                        totalPoints = dataPoint.optInt("value", -1);
+	                        break;
+	                    case "totalDistance":
+	                        totalDistance = dataPoint.optDouble("value", -1);
+	                        break;
+	                    case "challengesCompleted":
+	                        challengesCompleted = dataPoint.optInt("value", -1);
+	                        break;
+	                    case "totalTime":
+	                        JSONObject timeObj = dataPoint.optJSONObject("value");
+	                        if (timeObj != null) {
+	                            int hours = timeObj.optInt("hours", 0);
+	                            int minutes = timeObj.optInt("minute", 0);
+	                            int seconds = timeObj.optInt("sec", 0);
+	                            totalTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+	                        }
+	                        break;
+	                    default:
+	                        // Handle other data types if necessary
+	                        break;
+	                }
+	            }
+	        }
 
-			// Extract location information if available
-			String state = resultJSON.optString("state", "N/A");
-			String country = resultJSON.optString("country", "N/A");
+	        // Extract location information if available
+	        String state = resultJSON.optString("state", "N/A");
+	        String country = resultJSON.optString("country", "N/A");
 
-			// India and International race series 
-//			 System.out.println(String.join(", ", String.valueOf(runnerId), name,
-//			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
-			
-			// 100 Days of steps Challenge
-//			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//			String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
-			 
-			// TDH Result
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			   String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
-			
-			// Annual steps Challenge
-//			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//			String.valueOf(rank),String.valueOf(totalSteps),String.valueOf(activityCount)));
-			 }
+	        // Print the extracted information
+	        System.out.println(String.join(", ",
+	                String.valueOf(runnerId),
+	                name,
+	                gender,
+	                ageGroup,
+	                String.valueOf(age),
+	                String.valueOf(rank),
+	                String.valueOf(totalPoints),
+	                String.valueOf(totalDistance),
+	                String.valueOf(challengesCompleted),
+	                totalTime,
+	                state,
+	                country,
+	                eventId
+	        ));
+	    }
 	}
+
 
 	/**
 	 * Sends a POST request to the leaderboard API and retrieves the JSON response.
@@ -234,5 +228,7 @@ public class TestJava {
 		basicAuthHeader = "Basic " + new String(credBytes);
 		return basicAuthHeader;
 	}
+
+
 
 }
