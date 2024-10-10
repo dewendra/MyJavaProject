@@ -19,7 +19,7 @@ public class TestJavaApi {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "6684ff7a6ff9361402cfe480"; // Update with your actual event ID
+        String eventId = "65a90838622b5652c29e7eb1"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -84,6 +84,7 @@ public class TestJavaApi {
             int activityCount=-1;
             int totalPoints = -1;
             double totalDistance = -1;
+            int totalSteps=-1;
             int challengesCompleted = -1;
             String bestTime = "N/A";
             String totalTime = "N/A";
@@ -105,6 +106,9 @@ public class TestJavaApi {
                         case "totalDistance":
                             totalDistance = dataPoint.optDouble("value", -1);
                             break;
+                        case "totalSteps":
+    						totalSteps = dataPoint.optInt("value", -1);
+    						break;
                         case "challengesCompleted":
                             challengesCompleted = dataPoint.optInt("value", -1);
                             break;
@@ -138,12 +142,17 @@ public class TestJavaApi {
             String country = resultJSON.optString("country", "N/A");
             
          // India and International race series 
-			 System.out.println(String.join(", ", String.valueOf(runnerId), name,
-			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
+//			 System.out.println(String.join(", ", String.valueOf(runnerId), name,
+//			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
 
             // TDH 
 //            System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //     			   String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
+			 
+			// 100 Days of steps Challenge
+				System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+				String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
+				 
         }
     }
 
