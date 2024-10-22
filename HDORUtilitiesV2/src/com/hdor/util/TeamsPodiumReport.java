@@ -12,19 +12,24 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class TestJava {
+public class TeamsPodiumReport {
+
 
 	public static long numOfRecords = 0;
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
 		String eventId = "65caf8883bc478415b25b921";
-		int countPerPage = 3;
-		String ageGroup = "7-12";
-		String gender = "M";
+		int countPerPage = 5;
+//		String teamId="";
+//		String ageGroup = "7-12";
+//		String gender = "M";
+//		String category = "family";
+//		String members = "all";
 
 		// Fetch and process leaderboard data
-		JSONObject response = getDataFromAPI(eventId, countPerPage);
+		JSONObject response = getDataFromAPI(eventId,  countPerPage);
+		
 		if (response != null) {
 			processLeaderBoardResponseJson(response, eventId);
 		} else {
@@ -56,16 +61,19 @@ public class TestJava {
 			JSONObject resultJSON = resultArray.getJSONObject(i);
 
 			// Extract basic fields
-			int runnerId = resultJSON.optInt("runnerId", 0);
+			//int runnerId = resultJSON.optInt("runnerId", 0);
+			int teamId = resultJSON.optInt("teamId", 0);
 			String name = resultJSON.optString("name", "N/A");
-			String gender = resultJSON.optString("gender", "N/A");
-			int rank = resultJSON.optInt("rank", -1);
+			String type = resultJSON.optString("type", "N/A");
+			//String gender = resultJSON.optString("gender", "N/A");
+			int rank = resultJSON.optInt("rank", 0);
+			int members = resultJSON.optInt("members", 0);
 			String ageGroup = resultJSON.optString("ageGroup", "N/A");
 
 			// Initialize variables to store dataPoints
 			int daysCompleted = 0;
 			int totalPoints = 0;
-			double totalDistance = 0;
+			int totalDistance = 0;
 			String totalTime = "N/A";
 			String pace = "N/A";
 
@@ -84,7 +92,7 @@ public class TestJava {
 						totalPoints = dataPoint.optInt("value", 0);
 						break;
 					case "totalDistance":
-						totalDistance = dataPoint.optDouble("value", 0);
+						totalDistance = dataPoint.optInt("value", 0);
 						break;
 					case "totalTime":
 						JSONObject totalTimeObj = dataPoint.optJSONObject("value");
@@ -112,9 +120,8 @@ public class TestJava {
 			}
 
 			// 100 Days Leaderboard data
-			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender, String.valueOf(rank), ageGroup,
-					String.valueOf(daysCompleted), String.valueOf(totalPoints), String.valueOf(totalDistance),
-					totalTime, pace));
+			System.out.println(String.join(", ", String.valueOf(teamId), name, type,  String.valueOf(rank), 
+					String.valueOf(members), String.valueOf(totalPoints), String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 		}
 	}
 
@@ -127,14 +134,13 @@ public class TestJava {
 	 */
 	public static JSONObject getDataFromAPI(String eventId,  int countPerPage) {
 
-		//String ageGroup, String gender,
 		URL apiURL = null;
 		HttpURLConnection urlConnection = null;
 		JSONObject responseJson = null;
 
 		try {
 
-			String strURL = "https://apiv2.hdor.com/report/report/overall/list";
+			String strURL = "https://apiv2.hdor.com/report/report/team/list";
 
 			apiURL = new URL(strURL);
 
@@ -152,20 +158,25 @@ public class TestJava {
 
 			JSONArray filters=new JSONArray();
 			JSONObject postData1 = new JSONObject();
-			postData1.put("key", "gender");
-			postData1.put("value", "M");
+			
+			postData1 = new JSONObject();
+			postData1.put("key", "members");
+			postData1.put("value", "all");
 			filters.put(postData1);
 			
 			postData1 = new JSONObject();
-			postData1.put("key", "ageGroup");
-			postData1.put("value", "7-12");
+			postData1.put("key", "category");
+			postData1.put("value", "all_men");
+			filters.put(postData1);
+			
+			postData1 = new JSONObject();
+			postData1.put("key", "type");
+			postData1.put("value", "team");
 			filters.put(postData1);
 			
 			JSONObject postData = new JSONObject();
 			postData.put("reportType", "overall");
 			postData.put("eventId", eventId);
-			//postData.put("gender", gender);
-			//postData.put("ageGroup", ageGroup);
 			postData.put("countPerPage", countPerPage);
 			postData.put("value", 0);
 			postData.put("searchKey", "");
@@ -207,5 +218,10 @@ public class TestJava {
 		System.out.println("responseJson: " + responseJson);
 		return responseJson;
 	}
+
+	
+	
+
+
 
 }
