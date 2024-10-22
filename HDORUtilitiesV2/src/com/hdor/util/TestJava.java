@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -19,10 +18,13 @@ public class TestJava {
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "65a90838622b5652c29e7eb1";
+		String eventId = "65caf8883bc478415b25b921";
+		int countPerPage = 3;
+		String ageGroup = "7-12";
+		String gender = "M";
 
 		// Fetch and process leaderboard data
-		JSONObject response = getDataFromLeaderBoardAPI(eventId, 20000);
+		JSONObject response = getDataFromAPI(eventId, ageGroup, gender, countPerPage);
 		if (response != null) {
 			processLeaderBoardResponseJson(response, eventId);
 		} else {
@@ -47,26 +49,25 @@ public class TestJava {
 
 		JSONArray resultArray = response.getJSONArray("list");
 		int arraySize = resultArray.length();
+		System.out.println("arraySize: " + arraySize);
 
 		for (int i = 0; i < arraySize; i++) {
 			numOfRecords++;
 			JSONObject resultJSON = resultArray.getJSONObject(i);
 
 			// Extract basic fields
-			int runnerId = resultJSON.optInt("runnerId", -1);
+			int runnerId = resultJSON.optInt("runnerId", 0);
 			String name = resultJSON.optString("name", "N/A");
 			String gender = resultJSON.optString("gender", "N/A");
 			int rank = resultJSON.optInt("rank", -1);
 			String ageGroup = resultJSON.optString("ageGroup", "N/A");
-			
 
 			// Initialize variables to store dataPoints
-			int activityCount = -1;
-			int challengesCompleted=-1;
-			double totalPoints=-1;
-			double totalDistance=-1;
-			double totalSteps=-1;
-			String bestTime = "N/A";
+			int daysCompleted = 0;
+			int totalPoints = 0;
+			double totalDistance = 0;
+			String totalTime = "N/A";
+			String pace = "N/A";
 
 			// Extract dataPoints array
 			if (resultJSON.has("dataPoints")) {
@@ -76,28 +77,31 @@ public class TestJava {
 					String dataType = dataPoint.optString("dataType", "");
 
 					switch (dataType) {
-					case "activityCount":
-						activityCount = dataPoint.optInt("value", -1);
-						break;
-					case "challengesCompleted":
-						challengesCompleted = dataPoint.optInt("value", -1);
-						break;
-					case "totalDistance":
-						totalDistance = dataPoint.optDouble("value", -1);
+					case "daysCompleted":
+						daysCompleted = dataPoint.optInt("value", 0);
 						break;
 					case "totalPoints":
-						totalPoints = dataPoint.optDouble("value", -1);
+						totalPoints = dataPoint.optInt("value", 0);
 						break;
-					case "totalSteps":
-						totalSteps = dataPoint.optDouble("value", -1);
+					case "totalDistance":
+						totalDistance = dataPoint.optDouble("value", 0);
 						break;
-					case "bestTime":
-						JSONObject timeValue = dataPoint.optJSONObject("value");
-						if (timeValue != null) {
-							int hours = timeValue.optInt("hours", 0);
-							int minutes = timeValue.optInt("minute", 0);
-							int seconds = timeValue.optInt("sec", 0);
-							bestTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+					case "totalTime":
+						JSONObject totalTimeObj = dataPoint.optJSONObject("value");
+						if (totalTimeObj != null) {
+							int hours = totalTimeObj.optInt("hours", 0);
+							int minutes = totalTimeObj.optInt("minute", 0);
+							int seconds = totalTimeObj.optInt("sec", 0);
+							totalTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+						}
+						break;
+					case "pace":
+						JSONObject paceObj = dataPoint.optJSONObject("value");
+						if (paceObj != null) {
+							int hours = paceObj.optInt("hours", 0);
+							int minutes = paceObj.optInt("minute", 0);
+							int seconds = paceObj.optInt("sec", 0);
+							pace = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 						}
 						break;
 					default:
@@ -107,26 +111,11 @@ public class TestJava {
 				}
 			}
 
-			// Extract location information if available
-			String state = resultJSON.optString("state", "N/A");
-			String country = resultJSON.optString("country", "N/A");
-
-			// India and International race series 
-//			 System.out.println(String.join(", ", String.valueOf(runnerId), name,
-//			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
-			
-			// 100 Days of steps Challenge
-//			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//			String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
-			 
-			// TDH Result
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			   String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
-			
-			// Annual steps Challenge
-//			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//			String.valueOf(rank),String.valueOf(totalSteps),String.valueOf(activityCount)));
-			 }
+			// 100 Days Leaderboard data
+			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender, String.valueOf(rank), ageGroup,
+					String.valueOf(daysCompleted), String.valueOf(totalPoints), String.valueOf(totalDistance),
+					totalTime, pace));
+		}
 	}
 
 	/**
@@ -136,103 +125,86 @@ public class TestJava {
 	 * @param countPerPage Number of records to fetch per page
 	 * @return JSONObject containing the API response, or null if the request fails
 	 */
-	public static JSONObject getDataFromLeaderBoardAPI(String eventId, int countPerPage) {
-		URL apiURL;
+	public static JSONObject getDataFromAPI(String eventId, String ageGroup, String gender, int countPerPage) {
+
+		URL apiURL = null;
 		HttpURLConnection urlConnection = null;
 		JSONObject responseJson = null;
 
 		try {
-			// Define the API endpoint
+
 			String strURL = "https://apiv2.hdor.com/report/report/overall/list";
+
 			apiURL = new URL(strURL);
 
-			// Open the connection
 			if (strURL.toLowerCase().startsWith("https")) {
 				urlConnection = (HttpsURLConnection) apiURL.openConnection();
 			} else {
 				urlConnection = (HttpURLConnection) apiURL.openConnection();
 			}
 
-			// Configure the connection
 			urlConnection.setRequestMethod("POST");
 			urlConnection.setRequestProperty("Content-Type", "application/json; utf-8");
 			urlConnection.setRequestProperty("Accept", "application/json");
-			// Uncomment the next line if authentication is required
-			// urlConnection.setRequestProperty("Authorization", getBasicAuthHeader());
+
 			urlConnection.setDoOutput(true);
 
-			// Create the JSON payload
+			JSONArray filters=new JSONArray();
+			JSONObject postData1 = new JSONObject();
+			postData1.put("key", "gender");
+			postData1.put("value", "M");
+			filters.put(postData1);
+			
+			postData1 = new JSONObject();
+			postData1.put("key", "ageGroup");
+			postData1.put("value", "7-12");
+			filters.put(postData1);
+			
 			JSONObject postData = new JSONObject();
 			postData.put("reportType", "overall");
 			postData.put("eventId", eventId);
+			postData.put("gender", gender);
+			postData.put("ageGroup", ageGroup);
 			postData.put("countPerPage", countPerPage);
-			postData.put("gender", "all");
+			postData.put("value", 0);
+			postData.put("searchKey", "");
+			postData.put("searchEnabled", false);
 			postData.put("lastIndex", 0);
+			postData.put("filters", filters);
+			
 
-			// Send the POST request
-			try (OutputStream outputStream = urlConnection.getOutputStream()) {
-				byte[] requestBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
-				outputStream.write(requestBytes);
-				outputStream.flush();
-			}
+			System.out.println("Post Data:" + postData);
 
-			// Check the response code
-			int responseCode = urlConnection.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				// Read the response
-				try (BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8))) {
-					StringBuilder responseBuilder = new StringBuilder();
-					String line;
+			OutputStream outputStream = urlConnection.getOutputStream();
+			byte[] requestJsonBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
+			outputStream.write(requestJsonBytes, 0, requestJsonBytes.length);
 
-					while ((line = bufferedReader.readLine()) != null) {
-						responseBuilder.append(line);
-					}
+			if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 
-					// Parse the JSON response
-					responseJson = new JSONObject(responseBuilder.toString());
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+				StringBuilder output = new StringBuilder();
+				String response = bufferedReader.readLine();
+
+				while (null != response) {
+					output.append(response);
+					response = bufferedReader.readLine();
 				}
+
+				urlConnection.disconnect();
+
+				responseJson = new JSONObject(output.toString());
+
 			} else {
-				System.err.println("ERROR: API call failed with response code " + responseCode);
-				// Optionally, read the error stream for more details
-				try (BufferedReader errorReader = new BufferedReader(
-						new InputStreamReader(urlConnection.getErrorStream(), StandardCharsets.UTF_8))) {
-					StringBuilder errorBuilder = new StringBuilder();
-					String line;
-					while ((line = errorReader.readLine()) != null) {
-						errorBuilder.append(line);
-					}
-					System.err.println("Error details: " + errorBuilder.toString());
-				}
+				System.out.println("------------- ERROR WHILE CALLING API --------------");
+				System.out.println(urlConnection.getResponseCode());
 			}
 
 		} catch (Exception e) {
-			System.err.println("Exception occurred while calling the API:");
 			e.printStackTrace();
-		} finally {
-			if (urlConnection != null) {
-				urlConnection.disconnect();
-			}
 		}
-
+		System.out.println("responseJson: " + responseJson);
 		return responseJson;
-	}
-
-	/**
-	 * Generates a Basic Authentication header.
-	 *
-	 * **Security Notice:** Hardcoding credentials is insecure. Consider using
-	 * environment variables or a secure vault.
-	 *
-	 * @return A string representing the Basic Auth header
-	 */
-	public static String getBasicAuthHeader() {
-		String basicAuthHeader = null;
-		// Replace with secure credential handling in production
-		String authString = "dewendra.singh@pensar.in:kanchandevi";
-		byte[] credBytes = Base64.getEncoder().encode(authString.getBytes(StandardCharsets.UTF_8));
-		basicAuthHeader = "Basic " + new String(credBytes);
-		return basicAuthHeader;
 	}
 
 }

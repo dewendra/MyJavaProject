@@ -19,37 +19,41 @@ public class TestJavaApi {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "65a90838622b5652c29e7eb1"; // Update with your actual event ID
+        String eventId = "6684ff766ff9361402cfe445"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
         int totalSize = Integer.MAX_VALUE; // Initialize to a large number
 
         // Loop to fetch all pages
-        while (lastIndex < totalSize) {
+        while (lastIndex <= totalSize) {
             // Fetch data from API with current lastIndex
             JSONObject response = getDataFromLeaderBoardAPI(eventId, countPerPage, lastIndex);
-
             if (response != null) {
                 // Process the response
                 processLeaderBoardResponseJson(response, eventId);
-
                 // Update lastIndex and totalSize based on the response
                 JSONObject filter = response.optJSONObject("filter");
                 if (filter != null) {
-                    lastIndex = filter.optInt("lastIndex", lastIndex) + 1; // Move to next index
+                    lastIndex = filter.optInt("lastIndex", lastIndex); // Move to next index
                     totalSize = filter.optInt("totalSize", totalSize);
                 } else {
                     // If filter info is not available, break the loop
                     break;
                 }
+               
             } else {
                 System.out.println("No data received for event ID: " + eventId);
                 break;
             }
+            
+            if(totalSize==numOfRecords) {
+            	System.out.println("Number of records generated: " + numOfRecords);
+            	break;
+            }
         }
 
-        System.out.println("Number of records generated: " + numOfRecords);
+        //System.out.println("Number of records generated: " + numOfRecords);
     }
 
     /**
@@ -73,19 +77,20 @@ public class TestJavaApi {
             JSONObject resultJSON = resultArray.getJSONObject(i);
 
             // Extract basic fields
-            int runnerId = resultJSON.optInt("runnerId", -1);
+            int runnerId = resultJSON.optInt("runnerId", 0);
             String name = resultJSON.optString("name", "N/A");
             String gender = resultJSON.optString("gender", "N/A");
-            int rank = resultJSON.optInt("rank", -1);
+            int rank = resultJSON.optInt("rank", 0);
             String ageGroup = resultJSON.optString("ageGroup", "N/A");
-            int age = resultJSON.optInt("age", -1);
+            int age = resultJSON.optInt("age", 0);
 
             // Initialize variables to store dataPoints
-            int activityCount=-1;
-            int totalPoints = -1;
-            double totalDistance = -1;
-            int totalSteps=-1;
-            int challengesCompleted = -1;
+            int activityCount=0;
+            int totalPoints = 0;
+            int totalDistance = 0;
+            int totalSteps=0;
+            int challengesCompleted = 0;
+            int completedIn=0;
             String bestTime = "N/A";
             String totalTime = "N/A";
 
@@ -98,19 +103,22 @@ public class TestJavaApi {
 
                     switch (dataType) {
                     case "activityCount":
-						activityCount = dataPoint.optInt("value", -1);
+						activityCount = dataPoint.optInt("value", 0);
 						break;
                         case "totalPoints":
-                            totalPoints = dataPoint.optInt("value", -1);
+                            totalPoints = dataPoint.optInt("value", 0);
                             break;
                         case "totalDistance":
-                            totalDistance = dataPoint.optDouble("value", -1);
+                            totalDistance = dataPoint.optInt("value", 0);
                             break;
                         case "totalSteps":
-    						totalSteps = dataPoint.optInt("value", -1);
+    						totalSteps = dataPoint.optInt("value", 0);
     						break;
                         case "challengesCompleted":
-                            challengesCompleted = dataPoint.optInt("value", -1);
+                            challengesCompleted = dataPoint.optInt("value", 0);
+                            break;
+                        case "completedIn":
+                        	completedIn = dataPoint.optInt("value", 0);
                             break;
                         case "bestTime":
     						JSONObject timeValue = dataPoint.optJSONObject("value");
@@ -141,18 +149,33 @@ public class TestJavaApi {
             String state = resultJSON.optString("state", "N/A");
             String country = resultJSON.optString("country", "N/A");
             
-         // India and International race series 
-//			 System.out.println(String.join(", ", String.valueOf(runnerId), name,
+            //India and International race series 
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
 //			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
 
-            // TDH 
+            //TDH 
 //            System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//     			   String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
+//     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
 			 
-			// 100 Days of steps Challenge
-				System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-				String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
-				 
+			//100 Days of steps Challenge
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
+				
+            //Annual challenge - 1000km,2021Km, 1000Miles, 2021Miles..
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+//			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
+              
+		    //Annual challenge - 5km run,10km ride..
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+//			  String.valueOf(rank),String.valueOf(activityCount),eventId));
+              
+            //Annual Destination challenge(Himalaya Run, GQ Run etc)
+//            System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+//			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
+              
+            //Annual steps Challenge
+              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
         }
     }
 
@@ -246,6 +269,7 @@ public class TestJavaApi {
         return responseJson;
     }
 
+    
     /**
      * Generates a Basic Authentication header.
      *
