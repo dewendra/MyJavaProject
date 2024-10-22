@@ -12,9 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GroupPodiumReports {
-
-
+public class GroupCorporatePodiumReports {
 
 	public static long numOfRecords = 0;
 
@@ -60,21 +58,16 @@ public class GroupPodiumReports {
 			JSONObject resultJSON = resultArray.getJSONObject(i);
 
 			// Extract basic fields
-			//int runnerId = resultJSON.optInt("runnerId", 0);
-			int teamId = resultJSON.optInt("teamId", 0);
 			String name = resultJSON.optString("name", "N/A");
-			String type = resultJSON.optString("type", "N/A");
-			//String gender = resultJSON.optString("gender", "N/A");
 			int rank = resultJSON.optInt("rank", 0);
 			int member = resultJSON.optInt("member", 0);
-			String ageGroup = resultJSON.optString("ageGroup", "N/A");
+			
 
 			// Initialize variables to store dataPoints
-			int daysCompleted = 0;
+			
 			int totalPoints = 0;
 			int totalDistance = 0;
-			String totalTime = "N/A";
-			String pace = "N/A";
+			
 
 			// Extract dataPoints array
 			if (resultJSON.has("dataPoints")) {
@@ -84,32 +77,11 @@ public class GroupPodiumReports {
 					String dataType = dataPoint.optString("dataType", "");
 
 					switch (dataType) {
-					case "daysCompleted":
-						daysCompleted = dataPoint.optInt("value", 0);
-						break;
 					case "totalPoints":
 						totalPoints = dataPoint.optInt("value", 0);
 						break;
 					case "totalDistance":
 						totalDistance = dataPoint.optInt("value", 0);
-						break;
-					case "totalTime":
-						JSONObject totalTimeObj = dataPoint.optJSONObject("value");
-						if (totalTimeObj != null) {
-							int hours = totalTimeObj.optInt("hours", 0);
-							int minutes = totalTimeObj.optInt("minute", 0);
-							int seconds = totalTimeObj.optInt("sec", 0);
-							totalTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-						}
-						break;
-					case "pace":
-						JSONObject paceObj = dataPoint.optJSONObject("value");
-						if (paceObj != null) {
-							int hours = paceObj.optInt("hours", 0);
-							int minutes = paceObj.optInt("minute", 0);
-							int seconds = paceObj.optInt("sec", 0);
-							pace = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-						}
 						break;
 					default:
 						// Handle other data types if necessary
