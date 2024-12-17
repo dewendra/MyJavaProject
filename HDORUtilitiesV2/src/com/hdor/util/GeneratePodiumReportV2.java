@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "6684ff766ff9361402cfe445"; // Update with your actual event ID
+        String eventId = "6684ff866ff9361402cfe592"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -150,12 +150,12 @@ public class GeneratePodiumReportV2 {
             String country = resultJSON.optString("country", "N/A");
             
             //India and International race series 
-//			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
-//			  String.valueOf(rank), String.valueOf(activityCount), bestTime));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name," ", bestTime,
+//			  String.valueOf(rank), String.valueOf(activityCount) ));
 
             //TDH 
-//            System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
+              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
 			 
 			//100 Days of steps Challenge
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
@@ -174,8 +174,8 @@ public class GeneratePodiumReportV2 {
 //			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
               
             //Annual steps Challenge
-              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
+//              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
         }
     }
 
