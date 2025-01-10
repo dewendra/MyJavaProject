@@ -18,7 +18,7 @@ public class GroupCorporatePodiumReports {
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "65caf8883bc478415b25b921";
+		String eventId = "6684ff866ff9361402cfe592";
 		int countPerPage = 10;
 		//String entity = "group";
 		String entity = "corporate";

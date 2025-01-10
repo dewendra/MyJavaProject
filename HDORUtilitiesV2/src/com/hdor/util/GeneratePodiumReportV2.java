@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "6684ff866ff9361402cfe592"; // Update with your actual event ID
+        String eventId = "66f3ff374a4325e9dbf43bef"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -91,6 +91,7 @@ public class GeneratePodiumReportV2 {
             int totalSteps=0;
             int challengesCompleted = 0;
             int completedIn=0;
+            int daysCompleted=0;
             String bestTime = "N/A";
             String totalTime = "N/A";
 
@@ -119,6 +120,9 @@ public class GeneratePodiumReportV2 {
                             break;
                         case "completedIn":
                         	completedIn = dataPoint.optInt("value", 0);
+                            break;
+                        case "daysCompleted":
+                        	daysCompleted = dataPoint.optInt("value", 0);
                             break;
                         case "bestTime":
     						JSONObject timeValue = dataPoint.optJSONObject("value");
@@ -154,8 +158,13 @@ public class GeneratePodiumReportV2 {
 //			  String.valueOf(rank), String.valueOf(activityCount) ));
 
             //TDH 
-              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
+//              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
+            
+            //100 Days of Running
+			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+			
 			 
 			//100 Days of steps Challenge
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,

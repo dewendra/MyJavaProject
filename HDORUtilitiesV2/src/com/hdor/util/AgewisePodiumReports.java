@@ -19,10 +19,10 @@ public class AgewisePodiumReports {
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "65caf8883bc478415b25b921";
-		int countPerPage = 3;
+		String eventId = "6684ff866ff9361402cfe592";
+		int countPerPage = 1;
 		String ageGroup = "7-12";
-		String gender = "M";
+		String gender = "F";
 
 		// Fetch and process leaderboard data
 		JSONObject response = getDataFromAPI(eventId, countPerPage);
@@ -66,7 +66,8 @@ public class AgewisePodiumReports {
 			// Initialize variables to store dataPoints
 			int daysCompleted = 0;
 			int totalPoints = 0;
-			double totalDistance = 0;
+			int challengesCompleted=0;
+			int totalDistance = 0;
 			String totalTime = "N/A";
 			String pace = "N/A";
 
@@ -84,8 +85,11 @@ public class AgewisePodiumReports {
 					case "totalPoints":
 						totalPoints = dataPoint.optInt("value", 0);
 						break;
+					case "challengesCompleted":
+						challengesCompleted = dataPoint.optInt("value", 0);
+						break;
 					case "totalDistance":
-						totalDistance = dataPoint.optDouble("value", 0);
+						totalDistance = dataPoint.optInt("value", 0);
 						break;
 					case "totalTime":
 						JSONObject totalTimeObj = dataPoint.optJSONObject("value");
@@ -113,9 +117,9 @@ public class AgewisePodiumReports {
 			}
 
 			// 100 Days Leaderboard data
-			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender, String.valueOf(rank), ageGroup,
-					String.valueOf(daysCompleted), String.valueOf(totalPoints), String.valueOf(totalDistance),
-					totalTime, pace));
+			System.out.println(String.join(", ", String.valueOf(runnerId), name, ageGroup,  String.valueOf(rank), 
+					 String.valueOf(totalPoints), String.valueOf(totalDistance), String.valueOf(challengesCompleted),
+					 gender));
 		}
 	}
 
@@ -154,12 +158,12 @@ public class AgewisePodiumReports {
 			JSONArray filters=new JSONArray();
 			JSONObject postData1 = new JSONObject();
 			postData1.put("key", "gender");
-			postData1.put("value", "M");
+			postData1.put("value", "F");
 			filters.put(postData1);
 			
 			postData1 = new JSONObject();
 			postData1.put("key", "ageGroup");
-			postData1.put("value", "7-12");
+			postData1.put("value", "60+");
 			filters.put(postData1);
 			
 			JSONObject postData = new JSONObject();
