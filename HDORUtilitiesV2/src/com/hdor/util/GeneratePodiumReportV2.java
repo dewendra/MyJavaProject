@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "66f3ff374a4325e9dbf43bef"; // Update with your actual event ID
+        String eventId = "66f146c64a4325e9dbf43bbe"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -90,6 +90,7 @@ public class GeneratePodiumReportV2 {
             int totalDistance = 0;
             int totalSteps=0;
             int challengesCompleted = 0;
+            int challengePoints=0;
             int completedIn=0;
             int daysCompleted=0;
             String bestTime = "N/A";
@@ -117,6 +118,9 @@ public class GeneratePodiumReportV2 {
     						break;
                         case "challengesCompleted":
                             challengesCompleted = dataPoint.optInt("value", 0);
+                            break;
+                        case "challengePoints":
+                        	challengePoints = dataPoint.optInt("value", 0);
                             break;
                         case "completedIn":
                         	completedIn = dataPoint.optInt("value", 0);
@@ -162,8 +166,8 @@ public class GeneratePodiumReportV2 {
 //     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
             
             //100 Days of Running
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 			
 			 
 			//100 Days of steps Challenge
@@ -185,6 +189,10 @@ public class GeneratePodiumReportV2 {
             //Annual steps Challenge
 //              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
+			  
+			//John Deere 2024
+			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+			  String.valueOf(rank),String.valueOf(totalSteps)));
         }
     }
 
