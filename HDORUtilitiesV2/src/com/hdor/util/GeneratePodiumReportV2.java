@@ -50,6 +50,7 @@ public class GeneratePodiumReportV2 {
             
             if(totalSize==numOfRecords) {
             	System.out.println("Number of records generated: " + numOfRecords);
+            	System.out.println("tset");
             	break;
             }
         }
