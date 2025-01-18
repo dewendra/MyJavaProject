@@ -25,6 +25,7 @@ public class GeneratePodiumReportV2 {
         int lastIndex = 0;
         int totalSize = Integer.MAX_VALUE; // Initialize to a large number
 
+        
         // Loop to fetch all pages
         while (lastIndex <= totalSize) {
             // Fetch data from API with current lastIndex
