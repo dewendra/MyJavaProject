@@ -207,6 +207,7 @@ public class UserSpecificData {
                 }
             } else {
                 System.err.println("ERROR: API call failed with response code " + responseCode);
+                System.out.println("test response code");
                 // Optionally, read the error stream for more details
                 try (BufferedReader errorReader = new BufferedReader(
                         new InputStreamReader(urlConnection.getErrorStream(), StandardCharsets.UTF_8))) {
