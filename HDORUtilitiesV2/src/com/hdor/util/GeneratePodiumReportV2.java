@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "66f146c64a4325e9dbf43bbe"; // Update with your actual event ID
+        String eventId = "674eab5f2e42bd701880cad6"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -50,7 +50,7 @@ public class GeneratePodiumReportV2 {
             
             if(totalSize==numOfRecords) {
             	System.out.println("Number of records generated: " + numOfRecords);
-            	System.out.println("tset");
+            	
             	break;
             }
         }
@@ -156,18 +156,22 @@ public class GeneratePodiumReportV2 {
             }
 
             // Extract location information if available
-            String state = resultJSON.optString("state", "N/A");
-            String country = resultJSON.optString("country", "N/A");
+//            String state = resultJSON.optString("state", "N/A");
+//            String country = resultJSON.optString("country", "N/A");
             
             //India and International race series 
-//			  System.out.println(String.join(", ", String.valueOf(runnerId), name," ", bestTime,
-//			  String.valueOf(rank), String.valueOf(activityCount) ));
+			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
+			  String.valueOf(rank), String.valueOf(activityCount), bestTime ));
 
             //TDH 
 //              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
             
             //100 Days of Running
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+            
+          //BMI Running
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 			
@@ -193,8 +197,8 @@ public class GeneratePodiumReportV2 {
 //     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
 			  
 			//John Deere 2024
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
-			  String.valueOf(rank),String.valueOf(totalSteps)));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+//			  String.valueOf(rank),String.valueOf(totalSteps)));
         }
     }
 
@@ -261,6 +265,7 @@ public class GeneratePodiumReportV2 {
 
                     // Parse the JSON response
                     responseJson = new JSONObject(responseBuilder.toString());
+                   // System.out.println("response Json:"+responseJson);
                 }
             } else {
                 System.err.println("ERROR: API call failed with response code " + responseCode);
@@ -286,6 +291,7 @@ public class GeneratePodiumReportV2 {
         }
 
         return responseJson;
+        
     }
 
     
