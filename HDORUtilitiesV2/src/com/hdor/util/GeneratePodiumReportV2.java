@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "674eab5f2e42bd701880cad6"; // Update with your actual event ID
+        String eventId = "67400ee0e99eeebc804e9baf"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -160,8 +160,8 @@ public class GeneratePodiumReportV2 {
 //            String country = resultJSON.optString("country", "N/A");
             
             //India and International race series 
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
-			  String.valueOf(rank), String.valueOf(activityCount), bestTime ));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
+//			  String.valueOf(rank), String.valueOf(activityCount), bestTime ));
 
             //TDH 
 //              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
@@ -177,8 +177,8 @@ public class GeneratePodiumReportV2 {
 			
 			 
 			//100 Days of steps Challenge
-//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
+			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
 				
             //Annual challenge - 1000km,2021Km, 1000Miles, 2021Miles..
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
