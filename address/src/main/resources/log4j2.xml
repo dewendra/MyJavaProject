@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<Properties>
+
+		<Property name="BASE_LOG_PATH" value="@log.directory@" />
+
+		<Property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%-5level] [%c] - %m%n" />
+
+		<Property name="ADDITIVITY" value="@log.additivity@" />
+
+	</Properties>
+
+	<Appenders>
+	
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="frameworkLog"
+			fileName="${BASE_LOG_PATH}app-framework.log"
+			filePattern="${BASE_LOG_PATH}app-framework-%i.log">
+			
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			
+		</RollingFile>
+
+		<RollingFile name="applicationLog"
+			fileName="${BASE_LOG_PATH}application.log"
+			filePattern="${BASE_LOG_PATH}application-%i.log">
+			
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			
+		</RollingFile>
+
+		<RollingFile name="errorLog"
+			fileName="${BASE_LOG_PATH}error.log"
+			filePattern="${BASE_LOG_PATH}error-%i.log">
+			
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			
+		</RollingFile>
+		
+	</Appenders>
+
+	<Loggers>
+
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+
+		<Logger name="org.hibernate" level="warn" additivity="false">
+			<AppenderRef ref="frameworkLog" />
+		</Logger>
+
+		<Logger name="org.springframework.security"	level="warn" additivity="false">
+			<AppenderRef ref="frameworkLog" />
+		</Logger>
+
+		<Logger name="org.springframework" level="warn" additivity="false">
+			<AppenderRef ref="frameworkLog" />
+		</Logger>
+
+		<Logger name="org" level="error" additivity="false">
+			<AppenderRef ref="frameworkLog" />
+		</Logger>
+
+		<Logger
+			name="com.gss" level="debug" additivity="${ADDITIVITY}">
+			<AppenderRef ref="applicationLog" />
+		</Logger>
+
+		<Logger	name="com.gss.error" level="debug" additivity="${ADDITIVITY}">
+			<AppenderRef ref="errorLog" />
+		</Logger>
+		
+	</Loggers>
+
+</Configuration>
