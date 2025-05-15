@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "67400ee0e99eeebc804e9baf"; // Update with your actual event ID
+        String eventId = "6684ff536ff9361402cfdf1b"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
 
         int lastIndex = 0;
@@ -171,14 +171,14 @@ public class GeneratePodiumReportV2 {
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
             
-          //BMI Running
+            //BMI Running
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 			
 			 
 			//100 Days of steps Challenge
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalSteps),String.valueOf(challengesCompleted)));
 				
             //Annual challenge - 1000km,2021Km, 1000Miles, 2021Miles..
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
@@ -189,8 +189,8 @@ public class GeneratePodiumReportV2 {
 //			  String.valueOf(rank),String.valueOf(activityCount),eventId));
               
             //Annual Destination challenge(Himalaya Run, GQ Run etc)
-//            System.out.println(String.join(", ", String.valueOf(runnerId), name, 
-//			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
+            System.out.println(String.join(", ", String.valueOf(runnerId), name, 
+			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
               
             //Annual steps Challenge
 //              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,

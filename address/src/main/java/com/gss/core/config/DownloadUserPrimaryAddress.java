@@ -35,7 +35,7 @@ public class DownloadUserPrimaryAddress {
 		List<String[]> csvRows = new ArrayList<>();
 		csvRows.add(new String[]{
 				"runnerId", "firstName", "lastName","mobile","address1", "address2",
-				"landmark", "city","state","country","pincode"
+				"landmark", "country","state","city","pincode"
 				
 		});
 // "label",  "mobileCode", "countryId", "stateId", "cityId",
@@ -70,9 +70,9 @@ public class DownloadUserPrimaryAddress {
 								data.path("address1").asText(),
 								data.path("address2").asText(),
 								data.path("landmark").asText(),
-								data.path("city").asText(),
-								data.path("state").asText(),
 								data.path("country").asText(),
+								data.path("state").asText(),
+								data.path("city").asText(),
 								data.path("pincode").asText()
 								
 //								data.path("label").asText(),
