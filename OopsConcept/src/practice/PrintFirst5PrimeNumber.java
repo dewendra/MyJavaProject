@@ -1,19 +1,21 @@
 package practice;
 
-public class FindPrimeNumberInArray {
+public class PrintFirst5PrimeNumber {
 
 	public static void main(String[] args) {
-		
-		int numbers[] = { 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 15, 17, 18, 19 };
-		 System.out.println("Prime numbers:");
-		for (int num : numbers) {
+
+		int count = 0;
+		int num = 1;
+		 System.out.println("First 5 prime numbers:");
+		while (count < 5) {
 			if (isPrime(num)) {
 				System.out.print(num + " ");
+				count++;
 			}
 			num++;
 		}
 	}
-	// Method to check if a number is prime
+
 	private static boolean isPrime(int num) {
 		if (num < 1) {
 			return false;
