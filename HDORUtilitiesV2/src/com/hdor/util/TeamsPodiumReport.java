@@ -121,7 +121,7 @@ public class TeamsPodiumReport {
 
 			// 100 Days Leaderboard data
 			System.out.println(String.join(", ", String.valueOf(teamId), name, type,  String.valueOf(rank), 
-					String.valueOf(members), String.valueOf(totalPoints), String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+					 String.valueOf(totalPoints), String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 		}
 	}
 
@@ -166,7 +166,7 @@ public class TeamsPodiumReport {
 			
 			postData1 = new JSONObject();
 			postData1.put("key", "category");
-			postData1.put("value", "all_men");
+			postData1.put("value", "mixed");
 			filters.put(postData1);
 			
 			postData1 = new JSONObject();

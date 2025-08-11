@@ -24,7 +24,7 @@ public class GroupCorporateList {
 
         int lastIndex = 0;
         int totalSize = Integer.MAX_VALUE; // Initialize to a large number
-
+ 
         
         // Loop to fetch all pages
         while (lastIndex <= totalSize) {

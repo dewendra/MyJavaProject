@@ -24,7 +24,7 @@ public class UserSpecificData {
         String fitId="396170";
         int countPerPage = 100; // You can adjust this value based on API limits
 
-        int lastIndex = 0;
+        int lastIndex = 0; 
         int totalSize = Integer.MAX_VALUE; // Initialize to a large number
 
         // Loop to fetch all pages

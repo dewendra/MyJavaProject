@@ -22,7 +22,7 @@ public class TestJava {
 		int countPerPage = 3;
 		String ageGroup = "7-12";
 		String gender = "M";
-
+ 
 		// Fetch and process leaderboard data
 		JSONObject response = getDataFromAPI(eventId, countPerPage);
 		if (response != null) {

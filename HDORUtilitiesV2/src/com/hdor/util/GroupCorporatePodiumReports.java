@@ -130,21 +130,16 @@ public class GroupCorporatePodiumReports {
 			JSONArray filters=new JSONArray();
 			JSONObject postData1 = new JSONObject();
 			
-			postData1 = new JSONObject();
-			postData1.put("key", "members");
-			postData1.put("value", "all");
-			filters.put(postData1);
-			
-			postData1 = new JSONObject();
-			postData1.put("key", "category");
-			postData1.put("value", "all_men");
-			filters.put(postData1);
-			
-			postData1 = new JSONObject();
-			postData1.put("key", "type");
-			postData1.put("value", "team");
-			filters.put(postData1);
-			
+			/*
+			 * postData1 = new JSONObject(); postData1.put("key", "members");
+			 * postData1.put("value", "all"); filters.put(postData1);
+			 * 
+			 * postData1 = new JSONObject(); postData1.put("key", "category");
+			 * postData1.put("value", "all_men"); filters.put(postData1);
+			 * 
+			 * postData1 = new JSONObject(); postData1.put("key", "type");
+			 * postData1.put("value", "team"); filters.put(postData1);
+			 */
 			JSONObject postData = new JSONObject();
 			postData.put("reportType", "overall");
 			postData.put("eventId", eventId);

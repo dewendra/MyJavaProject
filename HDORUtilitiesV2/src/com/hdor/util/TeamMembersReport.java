@@ -18,10 +18,10 @@ public class TeamMembersReport {
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "65caf8883bc478415b25b921";
+		String eventId = "6793170613afdbd403fd9342";
 		int countPerPage = 5;
-		String teamId="4921";
-
+		String teamId="11525";
+ 
 
 		// Fetch and process leaderboard data
 		JSONObject response = getMembersDataFromAPI(eventId, teamId,  countPerPage);
@@ -155,7 +155,7 @@ public class TeamMembersReport {
 			postData1 = new JSONObject();
 			postData1.put("key", "type");
 			postData1.put("value", "couple");
-			filters.put(postData1);
+			//filters.put(postData1);
 			
 			JSONObject postData = new JSONObject();
 			postData.put("reportType", "overall");
