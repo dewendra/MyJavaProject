@@ -12,28 +12,51 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class AgewisePodiumReports {
+public class GroupCorporateList {
 
 
 	public static long numOfRecords = 0;
 
 	public static void main(String[] args) throws Exception {
-		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "6793170613afdbd403fd9342";
-		int countPerPage = 3;
-		String ageGroup = "7-12";
-		String gender = "M";
+        // Example event ID as a String (assuming it's alphanumeric)
+        String eventId = "6793170613afdbd403fd9342"; // Update with your actual event ID
+        int countPerPage = 100; // You can adjust this value based on API limits
 
-		// Fetch and process leaderboard data
-		JSONObject response = getDataFromAPI(eventId, countPerPage);
-		if (response != null) {
-			processLeaderBoardResponseJson(response, eventId);
-		} else {
-			System.out.println("No data received for event ID: " + eventId);
-		}
+        int lastIndex = 0;
+        int totalSize = Integer.MAX_VALUE; // Initialize to a large number
 
-		System.out.println("Number of records generated: " + numOfRecords);
-	}
+        
+        // Loop to fetch all pages
+        while (lastIndex <= totalSize) {
+            // Fetch data from API with current lastIndex
+            JSONObject response = getDataFromAPI(eventId, countPerPage);
+            if (response != null) {
+                // Process the response
+                processLeaderBoardResponseJson(response, eventId);
+                // Update lastIndex and totalSize based on the response
+                JSONObject filter = response.optJSONObject("filter");
+                if (filter != null) {
+                    lastIndex = filter.optInt("lastIndex", lastIndex); // Move to next index
+                    totalSize = filter.optInt("totalSize", totalSize);
+                } else {
+                    // If filter info is not available, break the loop
+                    break;
+                }
+               
+            } else {
+                System.out.println("No data received for event ID: " + eventId);
+                break;
+            }
+            
+            if(totalSize==numOfRecords) {
+            	System.out.println("Number of records generated: " + numOfRecords);
+            	
+            	break;
+            }
+        }
+
+        //System.out.println("Number of records generated: " + numOfRecords);
+    }
 
 	/**
 	 * Processes the leaderboard JSON response and prints relevant details.
@@ -50,7 +73,7 @@ public class AgewisePodiumReports {
 
 		JSONArray resultArray = response.getJSONArray("list");
 		int arraySize = resultArray.length();
-		System.out.println("arraySize: " + arraySize);
+		//System.out.println("arraySize: " + arraySize);
 
 		for (int i = 0; i < arraySize; i++) {
 			numOfRecords++;
@@ -59,17 +82,16 @@ public class AgewisePodiumReports {
 			// Extract basic fields
 			int runnerId = resultJSON.optInt("runnerId", 0);
 			String name = resultJSON.optString("name", "N/A");
-			String gender = resultJSON.optString("gender", "N/A");
-			int rank = resultJSON.optInt("rank", -1);
-			String ageGroup = resultJSON.optString("ageGroup", "N/A");
+			int rank = resultJSON.optInt("rank", 0);
+			int member = resultJSON.optInt("member", 0);
+			
 
 			// Initialize variables to store dataPoints
-			int daysCompleted = 0;
+			
 			int totalPoints = 0;
-			int challengesCompleted=0;
 			int totalDistance = 0;
-			String totalTime = "N/A";
-			String pace = "N/A";
+			int daysCompleted=0;
+			
 
 			// Extract dataPoints array
 			if (resultJSON.has("dataPoints")) {
@@ -79,36 +101,15 @@ public class AgewisePodiumReports {
 					String dataType = dataPoint.optString("dataType", "");
 
 					switch (dataType) {
-					case "daysCompleted":
-						daysCompleted = dataPoint.optInt("value", 0);
-						break;
 					case "totalPoints":
 						totalPoints = dataPoint.optInt("value", 0);
-						break;
-					case "challengesCompleted":
-						challengesCompleted = dataPoint.optInt("value", 0);
 						break;
 					case "totalDistance":
 						totalDistance = dataPoint.optInt("value", 0);
 						break;
-					case "totalTime":
-						JSONObject totalTimeObj = dataPoint.optJSONObject("value");
-						if (totalTimeObj != null) {
-							int hours = totalTimeObj.optInt("hours", 0);
-							int minutes = totalTimeObj.optInt("minute", 0);
-							int seconds = totalTimeObj.optInt("sec", 0);
-							totalTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-						}
-						break;
-					case "pace":
-						JSONObject paceObj = dataPoint.optJSONObject("value");
-						if (paceObj != null) {
-							int hours = paceObj.optInt("hours", 0);
-							int minutes = paceObj.optInt("minute", 0);
-							int seconds = paceObj.optInt("sec", 0);
-							pace = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-						}
-						break;
+					case "daysCompleted":
+                    	daysCompleted = dataPoint.optInt("value", 0);
+                        break;
 					default:
 						// Handle other data types if necessary
 						break;
@@ -117,9 +118,8 @@ public class AgewisePodiumReports {
 			}
 
 			// 100 Days Leaderboard data
-			System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,ageGroup,  String.valueOf(rank), 
-					String.valueOf(daysCompleted),String.valueOf(totalPoints),String.valueOf(totalDistance)
-					 ));
+			System.out.println(String.join(", ", String.valueOf(runnerId),  name, String.valueOf(rank),  
+					 String.valueOf(totalPoints), String.valueOf(totalDistance),String.valueOf(daysCompleted)));
 		}
 	}
 
@@ -130,9 +130,8 @@ public class AgewisePodiumReports {
 	 * @param countPerPage Number of records to fetch per page
 	 * @return JSONObject containing the API response, or null if the request fails
 	 */
-	public static JSONObject getDataFromAPI(String eventId,  int countPerPage) {
+	public static JSONObject getDataFromAPI(String eventId, int countPerPage) {
 
-		//String ageGroup, String gender,
 		URL apiURL = null;
 		HttpURLConnection urlConnection = null;
 		JSONObject responseJson = null;
@@ -157,29 +156,41 @@ public class AgewisePodiumReports {
 
 			JSONArray filters=new JSONArray();
 			JSONObject postData1 = new JSONObject();
+			
+			postData1 = new JSONObject();
 			postData1.put("key", "gender");
-			postData1.put("value", "F");
+			postData1.put("value", "all");
 			filters.put(postData1);
 			
 			postData1 = new JSONObject();
 			postData1.put("key", "ageGroup");
-			postData1.put("value", "60+");
+			postData1.put("value", "all");
 			filters.put(postData1);
 			
+			postData1 = new JSONObject();
+			postData1.put("key", "group");
+			postData1.put("value", "1128");
+			filters.put(postData1);
+			
+			postData1 = new JSONObject();
+			postData1.put("key", "corporate");
+			postData1.put("value", "1425");//Gateway software Solutions
+			//filters.put(postData1);
+			
+			
 			JSONObject postData = new JSONObject();
-			postData.put("reportType", "overall");
+			//postData.put("reportType", "overall");
 			postData.put("eventId", eventId);
-			//postData.put("gender", gender);
-			//postData.put("ageGroup", ageGroup);
+			//postData.put("entity", entity);
 			postData.put("countPerPage", countPerPage);
-			postData.put("value", 0);
-			postData.put("searchKey", "");
-			postData.put("searchEnabled", false);
+			//postData.put("value", 0);
+			//postData.put("searchKey", "");
+			//postData.put("searchEnabled", false);
 			postData.put("lastIndex", 0);
 			postData.put("filters", filters);
 			
 
-			System.out.println("Post Data:" + postData);
+			//System.out.println("Post Data:" + postData);
 
 			OutputStream outputStream = urlConnection.getOutputStream();
 			byte[] requestJsonBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
@@ -200,6 +211,7 @@ public class AgewisePodiumReports {
 				urlConnection.disconnect();
 
 				responseJson = new JSONObject(output.toString());
+				//System.out.println("Rsponse JSON :" +responseJson);
 
 			} else {
 				System.out.println("------------- ERROR WHILE CALLING API --------------");
@@ -209,9 +221,16 @@ public class AgewisePodiumReports {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("responseJson: " + responseJson);
+		//System.out.println("responseJson: " + responseJson);
 		return responseJson;
 	}
+
+	
+	
+
+
+
+
 
 
 
