@@ -26,11 +26,14 @@ public class AppilcationProperites {
 	@Value("${csv.file}")
 	private String csv_file;
 	
+	@Value("${emailaddress.url}")
+	private String emailaddress_url;
 	
 	@PostConstruct
 	private void postConstruct() {
 		logger.info("config properties");
 		logger.info("address_url : " + address_url);
+		logger.info("emailaddress_url : " + emailaddress_url);
 		logger.info("auth_token : " + auth_token);
 		logger.info("runner_ids : " + runner_ids);
 		logger.info("csv_file : " + csv_file);
@@ -40,6 +43,9 @@ public class AppilcationProperites {
 
 	public String getAddress_url() {
 		return address_url;
+	}
+	public String getemailaddress_url() {
+		return emailaddress_url;
 	}
 
 

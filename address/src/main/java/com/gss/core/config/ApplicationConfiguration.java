@@ -15,6 +15,7 @@ public class ApplicationConfiguration extends SpringBootServletInitializer{
 		ConfigurableApplicationContext ctx=	SpringApplication.run(ApplicationConfiguration.class, args);
 		
 		ctx.getBean(DownloadUserPrimaryAddress.class).download();
+		//ctx.getBean(DownloadUserEmailAddress.class).download();
 		
 		
 		SpringApplication.exit(ctx, () -> 0);

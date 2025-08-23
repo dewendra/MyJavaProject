@@ -21,7 +21,7 @@ public class GroupCorporatePodiumReports {
 		String eventId = "6793170613afdbd403fd9342";
 		int countPerPage = 10;
 		//String entity = "group";
-		String entity = "corporate";
+		String entity = "corporate"; 
 
 
 		// Fetch and process leaderboard data
