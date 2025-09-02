@@ -3,7 +3,7 @@ package codepractice;
 public class RemoveDuplicateElementsFromString {
 
 	public static void main(String[] args) {
-		String str = "welcome";
+		String str = "welcome";//output: welcom
 		String result = "";
 
 		// Outer loop — pick each character

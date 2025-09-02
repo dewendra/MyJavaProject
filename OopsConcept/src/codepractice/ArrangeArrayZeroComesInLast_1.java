@@ -1,10 +1,10 @@
 package codepractice;
 
-public class ArrangeArray {
+public class ArrangeArrayZeroComesInLast_1 {
 
 	public static void main(String[] args) {
 
-		int arr[] = { 1, 0, 1, 0, 1, 0 };
+		int arr[] = { 1, 0, 1, 0, 1, 0 };//output: 1,1,1,0,0,0,
 		int countOne = 0;
 		for (int num : arr) {
 			if (num == 1) {

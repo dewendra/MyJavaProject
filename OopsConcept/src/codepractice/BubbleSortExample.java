@@ -3,7 +3,7 @@ package codepractice;
 public class BubbleSortExample {
 
 	public static void main(String[] args) {
-		int[] arr = { 64, 34, 25, 12, 22, 11, 90 };
+		int[] arr = { 64, 34, 25, 12, 22, 11, 90 };//output: 11 12 22 25 34 64 90 
 
 		sorting(arr);
 

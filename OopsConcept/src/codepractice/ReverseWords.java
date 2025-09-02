@@ -3,7 +3,14 @@ package codepractice;
 public class ReverseWords {
 
 	public static void main(String[] args) {
-		
+		//output 
+//		Reversed word : cba
+//		Reversed result : cba
+//		Reversed word : zyx
+//		Reversed result : cba zyx
+//		Original string : abc xyz
+//		Reversed string : cba zyx
+
 		String s = "abc xyz";
 		String words[] = s.split(" ");
 		StringBuilder result = new StringBuilder();

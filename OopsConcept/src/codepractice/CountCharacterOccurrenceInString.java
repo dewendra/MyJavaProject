@@ -1,17 +1,18 @@
 package codepractice;
 
-public class FrequencyOfRepeatingCharacters {
+public class CountCharacterOccurrenceInString {
 
 	public static void main(String[] args) {
-		String s = "programing"; //r : 2 		g : 2
-		String str = s.toLowerCase();
+
+		String str = "programming";
+		str = str.toLowerCase();
 
 		for (int i = 0; i < str.length(); i++) {
 			char ch = str.charAt(i);
-
 			int count = 0;
 			boolean alreadyCounted = false;
 			for (int j = 0; j < i; j++) {
+
 				if (str.charAt(j) == ch) {
 					alreadyCounted = true;
 					break;
@@ -25,11 +26,11 @@ public class FrequencyOfRepeatingCharacters {
 					count++;
 				}
 			}
-			if (count > 1) {
+			if (count >= 1) {
+
 				System.out.println(ch + " : " + count);
 			}
 		}
-
 	}
 
 }

@@ -3,7 +3,7 @@ package codepractice;
 public class ReverseString {
 
 	public static void main(String[] args) {
-		String mainString="Java is invented in 1995 by Sun Microsystems";
+		String mainString="Java is invented in 1995 by Sun Microsystems"; //output : smetsysorciM nuS yb 1995 ni detnevni si avaJ
 		String reversedString=reverseString(mainString);
 		System.out.println("Original String : "+mainString);
 		System.out.println("Reversed String : "+reversedString);
