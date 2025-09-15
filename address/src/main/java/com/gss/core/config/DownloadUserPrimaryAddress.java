@@ -103,6 +103,7 @@ public class DownloadUserPrimaryAddress {
 
 	private  String fetchRunnerAddress(String runnerId) {
 		try {
+			System.out.println(config.getAddress_url() + runnerId);
 			URL url = new URL(config.getAddress_url() + runnerId);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
