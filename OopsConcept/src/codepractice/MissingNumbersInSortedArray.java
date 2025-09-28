@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MissingNumbersInSortedArray {
 
 	public static void main(String[] args) {
-		int arr[]= {7, 1, 3, 10, 6, 2}; // Unsorted array with missing numbers
+		int arr[]= {7, 1, 3, 10, 6, 2}; // Unsorted array with missing numbers 4 5 8 9 
 		
 		Arrays.sort(arr);
 		

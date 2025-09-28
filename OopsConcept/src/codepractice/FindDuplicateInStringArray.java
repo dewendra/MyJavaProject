@@ -1,6 +1,6 @@
 package codepractice;
 
-public class DuplicateInStringArray {
+public class FindDuplicateInStringArray {
 
 	public static void main(String[] args) {
 		String s[] = { "dev", "sonia", "manish", "dev", "sonia", "amit","alok","amit" };

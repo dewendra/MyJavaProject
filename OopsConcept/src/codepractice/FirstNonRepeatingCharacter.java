@@ -6,7 +6,7 @@ import java.util.Map;
 public class FirstNonRepeatingCharacter {
 
 	public static void main(String[] args) {
-		String str = "programming";
+		String str = "welcome";
 		str = str.toLowerCase();
 
 		Map<Character, Integer> map = new HashMap<Character, Integer>();

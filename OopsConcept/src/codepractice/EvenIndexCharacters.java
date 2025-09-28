@@ -6,7 +6,7 @@ public class EvenIndexCharacters {
 		String s = "automation";
 		StringBuilder result = new StringBuilder();
 		StringBuilder result1 = new StringBuilder();
-
+		System.out.println("-----------EvenIndexCharacters--------------------");
 		for (int i = 0; i < s.length(); i = i + 2) {
 			char ch = s.charAt(i);
 			result = result.append(ch).append(" ");
@@ -15,7 +15,7 @@ public class EvenIndexCharacters {
 		
 		
 
-		System.out.println("-----------EvenIndexCharacters--------------------");
+		System.out.println("-----------OddIndexCharacters--------------------");
 		for (int i = 1; i < s.length(); i = i + 2) {
 			char ch = s.charAt(i);
 			result1 = result1.append(ch).append(" ");

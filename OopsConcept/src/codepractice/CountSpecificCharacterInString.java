@@ -1,6 +1,6 @@
 package codepractice;
 
-public class CountCharacterInString {
+public class CountSpecificCharacterInString {
 
 	public static void main(String[] args) {
 		
