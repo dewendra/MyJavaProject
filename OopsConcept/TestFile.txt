@@ -1,3 +1,3 @@
 https://github.com/dewendrasingh/CucumberBDDProject.git
-//String api_key="PMAK-689775b3cb982b000105dc8d-1eaee3edb9e53cd754434993ff27cdb4fa";//postman api key
+
 https://46a00a37-e65d-4168-b165-f2c3e7d950ee.mock.pstmn.io---MockServerDemo1
