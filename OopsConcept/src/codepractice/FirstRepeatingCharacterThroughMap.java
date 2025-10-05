@@ -3,14 +3,14 @@ package codepractice;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirstNonRepeatingCharacter {
+public class FirstRepeatingCharacterThroughMap {
 
 	public static void main(String[] args) {
-		String str = "welcome";
+		String str = "programming";
 		str = str.toLowerCase();
 
 		Map<Character, Integer> map = new HashMap<Character, Integer>();
-
+		
 		for (int i = 0; i < str.length(); i++) {
 			Character ch = str.charAt(i);
 			if (map.containsKey(ch)) {
@@ -20,8 +20,8 @@ public class FirstNonRepeatingCharacter {
 			}
 		}
 		for (Character k : map.keySet()) {
-			if (map.get(k) == 1) {
-				System.out.println("First non repeating character is :" + k);
+			if (map.get(k) > 1) {
+				System.out.println("First reapting character is :" + k);
 				break;
 			}
 		}

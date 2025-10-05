@@ -1,17 +1,16 @@
 package codepractice;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirstRepeatingCharacter {
+public class FirstNonRepeatingCharacterThroughMap {
 
 	public static void main(String[] args) {
-		String str = "programming";
+		String str = "welcome";
 		str = str.toLowerCase();
 
 		Map<Character, Integer> map = new HashMap<Character, Integer>();
-		
+
 		for (int i = 0; i < str.length(); i++) {
 			Character ch = str.charAt(i);
 			if (map.containsKey(ch)) {
@@ -21,8 +20,8 @@ public class FirstRepeatingCharacter {
 			}
 		}
 		for (Character k : map.keySet()) {
-			if (map.get(k) > 1) {
-				System.out.println("First reapting character is :" + k);
+			if (map.get(k) == 1) {
+				System.out.println("First non repeating character is :" + k);
 				break;
 			}
 		}

@@ -3,7 +3,7 @@ package codepractice;
 public class CountVowelsConsonantsInString {
 
 	public static void main(String[] args) {
-		String s = "dewendra singh";
+		String s = "Example";// count occurrence of e in string output:2
 		s = s.toLowerCase();
 		int totalCharacter = 0;
 		int totalVowel = 0;

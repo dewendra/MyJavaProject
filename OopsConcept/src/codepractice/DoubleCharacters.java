@@ -4,7 +4,7 @@ public class DoubleCharacters {
 
 	public static void main(String[] args) {
 		String s="Hello";//Output: HHeelloo
-		System.out.println("Inpur :" +s);
+		System.out.println("Input :" +s);
 		StringBuilder result=new StringBuilder();
 		
 		for(int i=0;i<s.length();i++) {

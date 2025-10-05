@@ -17,7 +17,7 @@ public class ArrangeArrayZeroComesInFirst_2 {
 		// Step 1: Put all zeros in front
 		for (int num : arr) {
 			if (num == 0) {
-				result[index++] = 0;
+				result[index++] = num;
 			}
 		}
 		// Step 2: Put non-zeros

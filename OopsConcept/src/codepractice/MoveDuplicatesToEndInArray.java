@@ -21,7 +21,6 @@ public class MoveDuplicatesToEndInArray {
         // Create a new array to store the result
         int[] result = new int[n];
         int uniqueIndex = 0;
-        int duplicateIndex = n - 1;
 
         // First place unique elements at the beginning
         for (int i = 0; i < n; i++) {

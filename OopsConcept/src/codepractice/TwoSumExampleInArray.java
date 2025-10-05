@@ -15,6 +15,7 @@ public class TwoSumExampleInArray {
 			for (int j = i + 1; j < a.length; j++) {
 				if (a[i] + a[j] == target) {
 					System.out.println("Index of first element is " + i + " and Index of second element is " + j);
+					System.out.println("Element is : "+a[i]+","+a[j]);
 					System.out.println("matched");
 					return;
 				}

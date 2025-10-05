@@ -3,6 +3,11 @@ package codepractice;
 public class SeparateStringComponents {
 
 	public static void main(String[] args) {
+		//Input : dewendra123.singh@yahoo.com
+		//Character : dewendrasinghyahoocom
+		//Digit : 123
+		//Special Character : .@.
+		
 		String s="dewendra123.singh@yahoo.com";
 		
 		System.out.println("Input : "+s);

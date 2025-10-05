@@ -9,8 +9,8 @@ public class PalindromeNumber {
 
 		System.out.println("Original number is :"+number);
 		while (number > 0) {
-			int digit = number % 10;
-			reversed = reversed * 10 + digit;
+			int remainder = number % 10;
+			reversed = reversed * 10 + remainder;
 			number = number / 10;
 		}
 		System.out.println("Reversed number is :"+reversed);

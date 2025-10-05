@@ -12,7 +12,7 @@ public class FindArrayLength {
 				count++;
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		System.out.println("Number of element is : "+count);
 

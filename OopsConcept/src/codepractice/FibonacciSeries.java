@@ -11,7 +11,7 @@ public class FibonacciSeries {
 		//System.out.println("second number is : "+secondNumber);
 		
 		System.out.print("Fibonacci Series: "+firstNumer+" "+secondNumber);
-		for(int i=0;i<10;i++) {
+		for(int i=0;i<=10;i++) {
 			nextNumber=firstNumer+secondNumber;
 			System.out.print(" "+nextNumber);
 			firstNumer=secondNumber;
