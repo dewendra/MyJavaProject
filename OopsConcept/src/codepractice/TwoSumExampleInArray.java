@@ -6,7 +6,7 @@ public class TwoSumExampleInArray {
 
 	public static void main(String[] args) {
 
-		int a[] = { 6, 8, 11, 6, 7, 18 };
+		int a[] = { 6, 8, 11, 6, 7, 18,9 };
 		int target = 17;
 		System.out.println("Input Array : " + Arrays.toString(a));
 		System.out.println("Target is : " + target);

@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "6793170613afdbd403fd9342"; // Update with your actual event ID
+        String eventId = "674eab5f2e42bd701880caf8"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
  
         int lastIndex = 0;
@@ -160,16 +160,16 @@ public class GeneratePodiumReportV2 {
 //            String country = resultJSON.optString("country", "N/A");
             
             //India and International race series 
-//			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
-//			  String.valueOf(rank), String.valueOf(activityCount), bestTime ));
+			  System.out.println(String.join(", ", String.valueOf(runnerId), name,
+			  String.valueOf(rank), String.valueOf(activityCount), bestTime ));
 
             //TDH 
 //              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
 //     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
             
             //100 Days of Running
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
             
             //BMI Running
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,

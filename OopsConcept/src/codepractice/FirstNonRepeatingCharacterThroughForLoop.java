@@ -10,8 +10,9 @@ public class FirstNonRepeatingCharacterThroughForLoop {
 			char ch = str.charAt(i);
 			boolean isUnique = true;
 			for (int j = 0; j < str.length(); j++) {
-				if (i != 0 && ch == str.charAt(j)) {
-					isUnique = true;
+				if (i != j && ch == str.charAt(j)) {
+					isUnique = false;
+					break;
 				}
 			}
 			if (isUnique) {

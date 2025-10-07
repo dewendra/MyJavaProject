@@ -3,7 +3,7 @@ package codepractice;
 public class RemoveSpecialCharacterFromString {
 
 	public static void main(String[] args) {
-		String s="dewendra@2!1#3$4%5^6&7*8";
+		String s="dewendra@2!1#3$4%5^6&7*8";//dewendra21345678
 		
 		StringBuilder result= new StringBuilder();
 		

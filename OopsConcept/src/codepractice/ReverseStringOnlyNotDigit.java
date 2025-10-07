@@ -1,6 +1,6 @@
 package codepractice;
 
-public class ReverseString {
+public class ReverseStringOnlyNotDigit {
 
 	public static void main(String[] args) {
 		String mainString="Java is invented in 1995 by Sun Microsystems"; //output : smetsysorciM nuS yb 1995 ni detnevni si avaJ
