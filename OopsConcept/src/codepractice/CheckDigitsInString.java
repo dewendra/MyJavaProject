@@ -14,7 +14,7 @@ public class CheckDigitsInString {
 				break;
 			}
 		}
-		if (digitAvailable == true) {
+		if (digitAvailable) {
 			System.out.println("String contains digit..");
 		} else {
 			System.out.println("String does not contains digit..");
