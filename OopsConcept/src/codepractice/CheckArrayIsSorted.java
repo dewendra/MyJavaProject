@@ -3,7 +3,7 @@ package codepractice;
 public class CheckArrayIsSorted {
 
 	public static void main(String[] args) {
-		int arr[] = { 1, 2, 3, 4, 5 };
+		int arr[] = { 1, 5, 2, 3, 4, 5 };
 
 		boolean isSorted = true;
 

@@ -114,7 +114,8 @@ public class Main3 {
 			}
 		};
 		Collections.sort(studentList, studentNameComparator);
-		System.out.println(studentList);
+		printAllStudentData();
+		//System.out.println(studentList);
 	}
 
 	public static Student findStudentById(String studentId) {
