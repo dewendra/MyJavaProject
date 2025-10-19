@@ -6,22 +6,22 @@ public class ArrangeArrayZeroComesInFirst_2 {
 
 	public static void main(String[] args) {
 
-		int arr[] = { 4, 0, 6, 0, 9, 0, 2, 0, 5 };//[0, 0, 0, 0, 4, 6, 9, 2, 5]
-		int n = arr.length;
-		System.out.println("Original Arry is :" + Arrays.toString(arr));
+		int a[] = { 4, 0, 6, 0, 9, 0, 2, 0, 5 };//[0, 0, 0, 0, 4, 6, 9, 2, 5]
+		int n = a.length;
+		System.out.println("Original Arry is :" + Arrays.toString(a));
 		System.out.println("Lenth of Arry is :" + n);
 
 		int result[] = new int[n];
 		int index = 0;
 
 		// Step 1: Put all zeros in front
-		for (int num : arr) {
+		for (int num : a) {
 			if (num == 0) {
 				result[index++] = num;
 			}
 		}
 		// Step 2: Put non-zeros
-		for (int num : arr) {
+		for (int num : a) {
 			if (num != 0) {
 				result[index++] = num;
 			}
@@ -32,15 +32,15 @@ public class ArrangeArrayZeroComesInFirst_2 {
 		// By using enhanced for loop
 		int temp[] = new int[n];
 		int notZero = 0;
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] == 0) {
-				temp[notZero] = arr[i];
+		for (int i = 0; i < a.length; i++) {
+			if (a[i] == 0) {
+				temp[notZero] = a[i];
 				notZero++;
 			}
 		}
-		for(int i=0;i<arr.length;i++) {
-			if(arr[i]!=0) {
-				temp[notZero]=arr[i];
+		for(int i=0;i<a.length;i++) {
+			if(a[i]!=0) {
+				temp[notZero]=a[i];
 				notZero++;
 			}
 		}

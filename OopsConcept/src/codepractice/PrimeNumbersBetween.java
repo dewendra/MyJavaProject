@@ -10,11 +10,12 @@ public class PrimeNumbersBetween {
 		int startNumber = sc.nextInt();
 		System.out.println("Enter last number : ");
 		int lastNumber = sc.nextInt();
+		int totalPrimeNumber=0;
 
 		for (int num = startNumber; num <= lastNumber; num++) {
 			if (num > 1) {
 				boolean isPrime = true;
-				for (int i = 2; i < Math.sqrt(num); i++) {
+				for (int i = 2; i <= Math.sqrt(num); i++) {
 					if (num % i == 0) {
 						isPrime = false;
 						break;
@@ -22,11 +23,14 @@ public class PrimeNumbersBetween {
 				}
 				if (isPrime) {
 					System.out.print(num + " ");
+					totalPrimeNumber++;
 				}
 			} else {
 				System.out.println("Start and End Number is 1");
 			}
 
 		}
+		System.out.println();
+		System.out.println("Total Prime Number : "+totalPrimeNumber);
 	}
 }

@@ -9,14 +9,11 @@ public class RemoveDuplicateElementsFromArray {
 		int duplicatesCount = 0;
 		int n = arr.length;
 
-		// Temporary array to store unique elements
 		int temp[] = new int[n];
 		int newLength = 0;
-		// Outer loop — pick each element
 		for (int i = 0; i < n; i++) {
 			boolean isduplicates = false;
 			
-			// Inner loop — check if element is already in temp array
 			for (int j = 0; j < newLength; j++) {
 
 				if (arr[i] == temp[j]) {

@@ -1,6 +1,6 @@
 package codepractice;
 
-public class RemoveDuplicateElementsFromString {
+public class RemoveDuplicateCharacterFromString {
 
 	public static void main(String[] args) {
 		String str = "welcome";//output: welcom

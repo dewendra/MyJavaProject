@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SearchElementInArray {
 
 	 public static void main(String[] args) {
-	        int[] arr = {1, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9};
+	        int[] arr = {1, 3, 3, 4, 5, 6, 6, 7, 8, 9};
 	        Scanner scanner = new Scanner(System.in);
 
 	        System.out.print("Enter the element to search: ");

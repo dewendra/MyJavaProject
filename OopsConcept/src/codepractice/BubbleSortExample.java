@@ -3,27 +3,27 @@ package codepractice;
 public class BubbleSortExample {
 
 	public static void main(String[] args) {
-		int[] arr = { 64, 34, 25, 12, 22, 11, 90 };//output: 11 12 22 25 34 64 90 
+		int a[] = { 64, 34, 25, 12, 22, 11, 90 };//output: 11 12 22 25 34 64 90 
 
-		sorting(arr);
+		sorting(a);
 
 		System.out.println("Sorted arry is :");
-		for(int num:arr) {
+		for(int num:a) {
 			System.out.print(num+" ");
 		}
 
 	}
 
-	private static void sorting(int[] arr) {
-		int n = arr.length;
+	private static void sorting(int a[]) {
+		int n = a.length;
 		boolean swapped;
 		for (int i = 0; i < n - 1; i++) {
 			swapped = true;
 			for (int j = 0; j < n - i - 1; j++) {
-				if (arr[j] > arr[j + 1]) {
-					int temp = arr[j];
-					arr[j] = arr[j + 1];
-					arr[j + 1] = temp;
+				if (a[j] > a[j + 1]) {
+					int temp = a[j];
+					a[j] = a[j + 1];
+					a[j + 1] = temp;
 					swapped = true;
 				}
 			}
