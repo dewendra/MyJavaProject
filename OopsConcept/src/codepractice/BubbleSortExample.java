@@ -7,7 +7,7 @@ public class BubbleSortExample {
 
 		sorting(a);
 
-		System.out.println("Sorted arry is :");
+		System.out.print("Sorted arry is :");
 		for(int num:a) {
 			System.out.print(num+" ");
 		}
@@ -18,7 +18,7 @@ public class BubbleSortExample {
 		int n = a.length;
 		boolean swapped;
 		for (int i = 0; i < n - 1; i++) {
-			swapped = true;
+			swapped = false;
 			for (int j = 0; j < n - i - 1; j++) {
 				if (a[j] > a[j + 1]) {
 					int temp = a[j];
