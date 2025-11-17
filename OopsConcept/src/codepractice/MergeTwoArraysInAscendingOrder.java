@@ -6,11 +6,11 @@ import java.util.Arrays;
 public class MergeTwoArraysInAscendingOrder {
 
 	public static void main(String[] args) {
-		int arr1[] = { 1, 3, 5, 7, 9 };
-		int arr2[] = { 2, 4, 6, 8, 10 };//Output :1,2,3,4,5,6,7,8,9,10
+		int a[] = { 1, 3, 5, 7, 9 };
+		int b[] = { 2, 4, 6, 8, 10 };//Output :1,2,3,4,5,6,7,8,9,10
 
-		int n1 = arr1.length;
-		int n2 = arr2.length;
+		int n1 = a.length;
+		int n2 = b.length;
 
 		int mergedaArr[] = new int[n1 + n2];
 
@@ -18,19 +18,19 @@ public class MergeTwoArraysInAscendingOrder {
 
 		// Merge both arrays
 		while (i < n1 && j < n2) {
-			if (arr1[i] < arr2[j]) {
-				mergedaArr[k++] = arr1[i++];
+			if (a[i] < b[j]) {
+				mergedaArr[k++] = a[i++];
 			} else {
-				mergedaArr[k++] = arr2[j++];
+				mergedaArr[k++] = b[j++];
 			}
 		}
 		// Copy remaining elements of arr1
 		while (i < n1) {
-			mergedaArr[k++] = arr1[i++];
+			mergedaArr[k++] = a[i++];
 		}
 		// Copy remaining elements of arr2
 		while (j < n2) {
-			mergedaArr[k++] = arr2[j++];
+			mergedaArr[k++] = b[j++];
 		}
 
 		// Print result

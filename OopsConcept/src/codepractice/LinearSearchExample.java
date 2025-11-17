@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class LinearSearchExample {
 
 	public static void main(String[] args) {
-		int[] arr = { 10, 20, 30, 40, 50 };
+		int[] a = { 10, 20, 30, 40, 50 };
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter elemet for search :");
 		int searchElement = sc.nextInt();
-		int index = linearSearch(arr, searchElement);
+		int index = linearSearch(a, searchElement);
 		
 		if(index!=-1) {
 			System.out.println("Element found at index : "+index);

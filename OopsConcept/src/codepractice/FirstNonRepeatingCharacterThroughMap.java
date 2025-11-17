@@ -1,6 +1,7 @@
 package codepractice;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FirstNonRepeatingCharacterThroughMap {
@@ -9,7 +10,7 @@ public class FirstNonRepeatingCharacterThroughMap {
 		String str = "welcome";
 		str = str.toLowerCase();
 
-		Map<Character, Integer> map = new HashMap<Character, Integer>();
+		Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
 
 		for (int i = 0; i < str.length(); i++) {
 			char ch = str.charAt(i);

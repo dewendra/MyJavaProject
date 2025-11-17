@@ -6,8 +6,8 @@ import java.util.Map;
 public class CountWordOccurrenceInString {
 
 	public static void main(String[] args) {
-		String str = "Java is a programming language and Java is opensource language ";
-		String words[] = str.split("\\s+");
+		String s = "Java is a programming language and Java is opensource language ";
+		String words[] = s.split("\\s+");
 
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		for (int i = 0; i < words.length; i++) {
