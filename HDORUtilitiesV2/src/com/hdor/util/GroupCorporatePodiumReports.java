@@ -18,10 +18,10 @@ public class GroupCorporatePodiumReports {
 
 	public static void main(String[] args) throws Exception {
 		// Example event ID as a String (assuming it's alphanumeric)
-		String eventId = "6793170613afdbd403fd9342";
-		int countPerPage = 10;
-		//String entity = "group";
-		String entity = "corporate"; 
+		String eventId = "6846d725a609e9591d5bd4d2";
+		int countPerPage = 5;
+		String entity = "group";
+		//String entity = "corporate"; 
 
 
 		// Fetch and process leaderboard data
