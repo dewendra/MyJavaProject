@@ -169,8 +169,8 @@ public class GeneratePodiumReportV2 {
 //     		  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(totalPoints)));
             
             //100 Days of Running
-			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
+//			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+//			  String.valueOf(rank),String.valueOf(totalPoints),String.valueOf(totalDistance),String.valueOf(daysCompleted)));
             
             //BMI Running
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
