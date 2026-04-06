@@ -19,7 +19,7 @@ public class GeneratePodiumReportV2 {
 
     public static void main(String[] args) throws Exception {
         // Example event ID as a String (assuming it's alphanumeric)
-        String eventId = "6846d47ba609e9591d5bd49b"; // Update with your actual event ID
+        String eventId = "674e8f70e864ad482d383913"; // Update with your actual event ID
         int countPerPage = 100; // You can adjust this value based on API limits
  
         int lastIndex = 0;
@@ -194,8 +194,8 @@ public class GeneratePodiumReportV2 {
 //			  String.valueOf(rank),String.valueOf(totalDistance),String.valueOf(completedIn),eventId));
               
             //Annual steps Challenge
-//              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
-//     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
+              System.out.println(String.join(", ", String.valueOf(runnerId), name, gender,
+     		  String.valueOf(rank),String.valueOf(activityCount),String.valueOf(totalSteps),eventId));
 			  
 			//John Deere 2024
 //			  System.out.println(String.join(", ", String.valueOf(runnerId), name, 
